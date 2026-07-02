@@ -1,0 +1,410 @@
+Build a production-ready Netflix-style streaming web application called "NEXTFLIX".
+
+IMPORTANT REQUIREMENTS
+
+This project MUST NOT depend on Replit-specific runtime features.
+
+DO NOT use:
+- @replit/*
+- Replit authentication
+- Replit database
+- Replit deployment APIs
+- runtime-error-overlay
+- cartographer
+- dev-banner
+- monorepo packages
+- workspace:* packages
+
+Use a standard React + Vite project that can deploy on Netlify, Vercel, GitHub Pages, or Cloudflare Pages without modification.
+
+-----------------------------------
+TECH STACK
+-----------------------------------
+
+Frontend
+
+- React 19
+- Vite
+- TypeScript
+- TailwindCSS
+- React Router
+- React Query
+- Axios
+- Framer Motion
+- React Icons
+
+No Express backend.
+
+No database required.
+
+-----------------------------------
+API
+-----------------------------------
+
+Use TMDB API directly from frontend.
+
+Environment Variable
+
+VITE_TMDB_API_KEY=YOUR_API_KEY
+
+Base URL
+
+https://api.themoviedb.org/3
+
+Image URL
+
+https://image.tmdb.org/t/p/original
+
+Do NOT use OMDB.
+
+Do NOT create any backend.
+
+All movie data comes from TMDB.
+
+-----------------------------------
+HOME PAGE
+-----------------------------------
+
+Large Netflix Hero Banner
+
+Auto rotating featured movies
+
+Trending Movies
+
+Popular Movies
+
+Top Rated Movies
+
+Upcoming Movies
+
+Trending TV Shows
+
+Popular TV Shows
+
+Top Rated TV Shows
+
+Anime section using TMDB Anime genre.
+
+Beautiful sliders.
+
+Hover animation.
+
+Netflix dark UI.
+
+-----------------------------------
+MOVIE DETAILS
+-----------------------------------
+
+Poster
+
+Backdrop
+
+Overview
+
+Genres
+
+Release date
+
+Runtime
+
+Rating
+
+Trailer (YouTube)
+
+Cast
+
+Recommendations
+
+Similar Movies
+
+-----------------------------------
+WATCH PAGE
+-----------------------------------
+
+Beautiful Netflix player page.
+
+Embedded YouTube trailer.
+
+Episode selector for TV Shows.
+
+Related content.
+
+Continue Watching.
+
+-----------------------------------
+SEARCH
+-----------------------------------
+
+Live search
+
+Movies
+
+TV
+
+People
+
+Search suggestions
+
+-----------------------------------
+CATEGORIES
+-----------------------------------
+
+Action
+
+Comedy
+
+Drama
+
+Sci-Fi
+
+Adventure
+
+Animation
+
+Horror
+
+Romance
+
+Crime
+
+Fantasy
+
+Family
+
+Thriller
+
+Mystery
+
+War
+
+History
+
+Anime
+
+-----------------------------------
+PROFILE
+-----------------------------------
+
+LocalStorage only.
+
+No backend.
+
+Continue Watching
+
+Watchlist
+
+Favorites
+
+Recently Watched
+
+-----------------------------------
+LOGIN
+-----------------------------------
+
+Fake authentication.
+
+Store user in LocalStorage.
+
+No backend.
+
+No Clerk.
+
+No Firebase.
+
+-----------------------------------
+ADMIN PANEL
+-----------------------------------
+
+Simple admin page.
+
+LocalStorage only.
+
+Admin can:
+
+Add Movie
+
+Edit Movie
+
+Delete Movie
+
+Add Banner
+
+Manage Featured
+
+These custom movies appear before TMDB movies.
+
+-----------------------------------
+UI
+-----------------------------------
+
+Netflix inspired
+
+Responsive
+
+Desktop
+
+Tablet
+
+Mobile
+
+Smooth animations
+
+Skeleton loading
+
+Error pages
+
+404 page
+
+Loading screen
+
+-----------------------------------
+PLAYER
+-----------------------------------
+
+Movie page opens trailer.
+
+TV page shows seasons and episodes.
+
+-----------------------------------
+DEPLOYMENT
+-----------------------------------
+
+Project MUST deploy successfully on:
+
+Netlify
+
+Vercel
+
+GitHub Pages
+
+Cloudflare Pages
+
+Without changing any code.
+
+Do NOT require:
+
+PORT
+
+BASE_PATH
+
+SERVER_URL
+
+REPL_ID
+
+NODE_ENV specific logic
+
+No server configuration.
+
+-----------------------------------
+VITE CONFIG
+-----------------------------------
+
+Use a normal vite.config.ts.
+
+Never throw errors if environment variables are missing.
+
+Example:
+
+const port = Number(process.env.PORT || 5173)
+
+Never require BASE_PATH.
+
+Never require PORT.
+
+No allowedHosts configuration.
+
+-----------------------------------
+NO MONOREPO
+-----------------------------------
+
+Create a normal React project.
+
+Single package.json.
+
+No pnpm workspace.
+
+No workspace dependencies.
+
+No generated packages.
+
+No custom fetch package.
+
+-----------------------------------
+PACKAGE MANAGER
+-----------------------------------
+
+Use npm.
+
+No pnpm.
+
+No workspaces.
+
+-----------------------------------
+OUTPUT
+-----------------------------------
+
+Project structure:
+
+src/
+
+components/
+
+pages/
+
+hooks/
+
+services/
+
+assets/
+
+utils/
+
+types/
+
+public/
+
+package.json
+
+vite.config.ts
+
+tailwind.config.js
+
+tsconfig.json
+
+README.md
+
+-----------------------------------
+QUALITY
+-----------------------------------
+
+No TypeScript errors.
+
+No build errors.
+
+No deployment errors.
+
+No runtime errors.
+
+No blank pages.
+
+No missing routes.
+
+Every page works.
+
+Every navigation works.
+
+All images load correctly.
+
+All API requests have loading and error handling.
+
+Project should build successfully using:
+
+npm install
+
+npm run build
+
+npm run dev
+
+without any modifications.
+
+Generate complete production-ready code.
