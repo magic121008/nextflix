@@ -1,0 +1,50 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "iVCfmZ557h0ah6NX8SEEG"
+uri = "file://artifacts/nextflix/public/images/poster-cyberpunk.png"
+type = "image"
+title = "Cyberpunk action movie poster"
+
+[[generated]]
+id = "nkOqh9ItOVQLCxEyIukjz"
+uri = "file://artifacts/nextflix/public/images/poster-fantasy.png"
+type = "image"
+title = "Fantasy epic movie poster"
+
+[[generated]]
+id = "IR-DaZNHveas0SiMByUvG"
+uri = "file://artifacts/nextflix/public/images/poster-anime-space.png"
+type = "image"
+title = "Sci-fi space anime poster"
+
+[[generated]]
+id = "P4_iGQy4iOSLtVyRDYTOD"
+uri = "file://artifacts/nextflix/public/images/poster-anime-slice.png"
+type = "image"
+title = "Slice of life anime poster"
+
+[[generated]]
+id = "2OgVEkDGmy9eoGmGH1MNV"
+uri = "file://artifacts/nextflix/public/images/poster-tv-crime.png"
+type = "image"
+title = "Gritty crime drama TV poster"
+
+[[generated]]
+id = "R_E0O_0TXDJQ9M5qmOS28"
+uri = "file://artifacts/nextflix/public/images/poster-tv-historical.png"
+type = "image"
+title = "Historical war epic TV poster"
+
+[[generated]]
+id = "xEaOLuhg7unoy9NA8Xz6p"
+uri = "file://artifacts/nextflix/public/images/poster-thriller.png"
+type = "image"
+title = "Psychological thriller movie poster"
+
+[[generated]]
+id = "7iAPllH-5YzN6jD24OAjG"
+uri = "file://artifacts/nextflix/public/images/banner-action.png"
+type = "image"
+title = "Cinematic action hero banner"

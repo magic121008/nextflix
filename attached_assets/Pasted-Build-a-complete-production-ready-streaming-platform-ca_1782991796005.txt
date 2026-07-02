@@ -1,0 +1,261 @@
+Build a complete production-ready streaming platform called "NEXTFLIX".
+
+IMPORTANT:
+Do NOT create a Replit Workspace monorepo.
+Do NOT use pnpm workspaces.
+Do NOT create artifacts/, lib/, workspace packages, or @workspace imports.
+Create ONE standard full-stack application.
+
+Technology Stack
+
+Frontend:
+- React 19
+- Vite
+- TypeScript
+- Tailwind CSS
+- React Router
+- React Query
+
+Backend:
+- Node.js
+- Express
+- TypeScript
+
+Database:
+- PostgreSQL (Supabase or Neon)
+
+Authentication:
+- JWT authentication
+- Email/password login
+- Admin role support
+
+Package Manager:
+- npm only
+
+Project Structure
+
+/
+client/
+server/
+public/
+package.json
+vite.config.ts
+vercel.json
+netlify.toml
+render.yaml
+Dockerfile
+.env.example
+README.md
+
+One package.json only.
+
+Do not use:
+- pnpm workspaces
+- turbo
+- nx
+- lerna
+- monorepo
+- artifacts/
+- @workspace/*
+- Replit-specific plugins
+
+Frontend Features
+
+Netflix-style UI.
+
+Pages:
+- Home
+- Movies
+- Anime
+- TV Shows
+- Trending
+- Latest
+- Categories
+- Search
+- Watchlist
+- Login
+- Register
+- Profile
+- Admin Dashboard
+- Video Player
+- 404 Page
+
+Navigation:
+Every card, button and image must navigate correctly.
+
+Backend Features
+
+REST API
+
+/api/movies
+/api/anime
+/api/tv
+/api/search
+/api/categories
+/api/auth/login
+/api/auth/register
+/api/admin
+/api/upload
+
+Admin Dashboard
+
+Secure admin login.
+
+Dashboard must include:
+- Add Movie
+- Edit Movie
+- Delete Movie
+- Add Anime
+- Edit Anime
+- Delete Anime
+- Upload Poster
+- Upload Banner
+- Upload Trailer
+- Manage Categories
+- Manage Users
+- Dashboard Analytics
+
+Video Player
+
+Support embedded streaming URLs.
+
+Support:
+- MP4
+- HLS (.m3u8)
+- iframe embed URLs
+
+Player Features:
+- Fullscreen
+- Quality selector
+- Playback speed
+- Auto resume
+- Related content
+- Next episode
+- Continue Watching
+
+Deployment
+
+The project MUST deploy without modification on:
+
+- Vercel
+- Netlify
+- Render
+- Railway
+
+Generate:
+vercel.json
+netlify.toml
+render.yaml
+Dockerfile
+
+Use environment variables only.
+
+Do not hardcode URLs.
+
+Use:
+
+VITE_API_URL
+
+for frontend API calls.
+
+Backend must enable CORS.
+
+Vite Configuration
+
+Do NOT require PORT or BASE_PATH.
+
+Use defaults:
+
+const port = Number(process.env.PORT || 5173);
+const base = process.env.BASE_PATH || "/";
+
+Use:
+
+server:
+host: "0.0.0.0"
+allowedHosts: true
+
+preview:
+host: "0.0.0.0"
+allowedHosts: true
+
+Build
+
+Frontend output:
+
+dist
+
+Never use:
+
+dist/public
+
+Never require Replit build folders.
+
+Error Prevention
+
+Do not use app.listen() inside any Vercel serverless function.
+
+Do not use Replit runtime plugins.
+
+Do not require BASE_PATH.
+
+Do not require PORT during build.
+
+No 404 routes after deployment.
+
+No Internal Server Error.
+
+No healthcheck failures.
+
+No blocked host errors.
+
+No workspace dependency errors.
+
+No pnpm lockfile errors.
+
+No frozen-lockfile errors.
+
+No build errors.
+
+No runtime errors.
+
+No missing environment variable crashes.
+
+If an environment variable is missing, show a readable error message instead of crashing.
+
+Verification
+
+Before finishing, automatically verify:
+
+✓ npm install
+✓ npm run build
+✓ npm start
+✓ Home page
+✓ Movies
+✓ Anime
+✓ Login
+✓ Register
+✓ Admin Dashboard
+✓ Search
+✓ Categories
+✓ Video Player
+✓ API
+✓ Database
+✓ CORS
+✓ Production build
+✓ Vercel compatibility
+✓ Netlify compatibility
+✓ Render compatibility
+✓ Railway compatibility
+
+Only finish after every check passes successfully.
+
+Generate a deployment report listing:
+- Files created
+- Environment variables required
+- Build status
+- Deployment status
+- API status
+- Database status
+- Frontend status
+- Backend status

@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "NEXTFLIX"
+version = "1.0.0"
+id = "artifacts/nextflix"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25023
+
+[services.development]
+run = "pnpm --filter @workspace/nextflix run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/nextflix", "run", "build" ]
+publicDir = "artifacts/nextflix/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25023"
+BASE_PATH = "/"

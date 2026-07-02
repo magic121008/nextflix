@@ -1,22 +1,39 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: NEXTFLIX streaming platform API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: auth
+    description: Authentication
+  - name: movies
+    description: Movie operations
+  - name: anime
+    description: Anime operations
+  - name: tv
+    description: TV Show operations
+  - name: categories
+    description: Category operations
+  - name: search
+    description: Search operations
+  - name: watchlist
+    description: Watchlist operations
+  - name: admin
+    description: Admin operations
+  - name: users
+    description: User operations
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +41,674 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  # ── AUTH ─────────────────────────────────────────────────────────────────
+  /auth/register:
+    post:
+      operationId: register
+      tags: [auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+
+  # ── MOVIES ───────────────────────────────────────────────────────────────
+  /movies:
+    get:
+      operationId: getMovies
+      tags: [movies]
+      summary: List movies
+      parameters:
+        - name: categoryId
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: page
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: limit
+          in: query
+          schema:
+            type: ["integer", "null"]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContentPage"
+    post:
+      operationId: createMovie
+      tags: [movies]
+      summary: Create movie (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContentInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+
+  /movies/trending:
+    get:
+      operationId: getTrendingMovies
+      tags: [movies]
+      summary: Get trending movies
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+
+  /movies/latest:
+    get:
+      operationId: getLatestMovies
+      tags: [movies]
+      summary: Get latest movies
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+
+  /movies/{id}:
+    get:
+      operationId: getMovie
+      tags: [movies]
+      summary: Get movie by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+    patch:
+      operationId: updateMovie
+      tags: [movies]
+      summary: Update movie (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContentUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+    delete:
+      operationId: deleteMovie
+      tags: [movies]
+      summary: Delete movie (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ── ANIME ────────────────────────────────────────────────────────────────
+  /anime:
+    get:
+      operationId: getAnime
+      tags: [anime]
+      summary: List anime
+      parameters:
+        - name: categoryId
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: page
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: limit
+          in: query
+          schema:
+            type: ["integer", "null"]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContentPage"
+    post:
+      operationId: createAnime
+      tags: [anime]
+      summary: Create anime (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContentInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+
+  /anime/trending:
+    get:
+      operationId: getTrendingAnime
+      tags: [anime]
+      summary: Get trending anime
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+
+  /anime/{id}:
+    get:
+      operationId: getAnimeById
+      tags: [anime]
+      summary: Get anime by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+    patch:
+      operationId: updateAnime
+      tags: [anime]
+      summary: Update anime (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContentUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+    delete:
+      operationId: deleteAnime
+      tags: [anime]
+      summary: Delete anime (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ── TV SHOWS ──────────────────────────────────────────────────────────────
+  /tv:
+    get:
+      operationId: getTvShows
+      tags: [tv]
+      summary: List TV shows
+      parameters:
+        - name: categoryId
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: page
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: limit
+          in: query
+          schema:
+            type: ["integer", "null"]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContentPage"
+    post:
+      operationId: createTvShow
+      tags: [tv]
+      summary: Create TV show (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContentInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+
+  /tv/trending:
+    get:
+      operationId: getTrendingTv
+      tags: [tv]
+      summary: Get trending TV shows
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+
+  /tv/{id}:
+    get:
+      operationId: getTvShow
+      tags: [tv]
+      summary: Get TV show by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+    patch:
+      operationId: updateTvShow
+      tags: [tv]
+      summary: Update TV show (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContentUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Content"
+    delete:
+      operationId: deleteTvShow
+      tags: [tv]
+      summary: Delete TV show (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ── CATEGORIES ────────────────────────────────────────────────────────────
+  /categories:
+    get:
+      operationId: getCategories
+      tags: [categories]
+      summary: List categories
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+    post:
+      operationId: createCategory
+      tags: [categories]
+      summary: Create category (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+
+  /categories/{id}:
+    patch:
+      operationId: updateCategory
+      tags: [categories]
+      summary: Update category (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+    delete:
+      operationId: deleteCategory
+      tags: [categories]
+      summary: Delete category (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ── SEARCH ────────────────────────────────────────────────────────────────
+  /search:
+    get:
+      operationId: search
+      tags: [search]
+      summary: Search all content
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: ["string", "null"]
+            enum: ["movie", "anime", "tv", null]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+
+  # ── WATCHLIST ─────────────────────────────────────────────────────────────
+  /watchlist:
+    get:
+      operationId: getWatchlist
+      tags: [watchlist]
+      summary: Get user watchlist
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+    post:
+      operationId: addToWatchlist
+      tags: [watchlist]
+      summary: Add to watchlist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WatchlistInput"
+      responses:
+        "201":
+          description: Added
+
+  /watchlist/{contentId}:
+    delete:
+      operationId: removeFromWatchlist
+      tags: [watchlist]
+      summary: Remove from watchlist
+      parameters:
+        - name: contentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Removed
+
+  # ── CONTINUE WATCHING ─────────────────────────────────────────────────────
+  /continue-watching:
+    get:
+      operationId: getContinueWatching
+      tags: [watchlist]
+      summary: Get continue watching list
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WatchProgress"
+    post:
+      operationId: updateWatchProgress
+      tags: [watchlist]
+      summary: Update watch progress
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WatchProgressInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WatchProgress"
+
+  # ── ADMIN ─────────────────────────────────────────────────────────────────
+  /admin/stats:
+    get:
+      operationId: getAdminStats
+      tags: [admin]
+      summary: Get dashboard analytics
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminStats"
+
+  /admin/users:
+    get:
+      operationId: getAdminUsers
+      tags: [admin]
+      summary: List all users (admin)
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+  /admin/users/{id}:
+    patch:
+      operationId: updateUser
+      tags: [admin]
+      summary: Update user (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    delete:
+      operationId: deleteUser
+      tags: [admin]
+      summary: Delete user (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ── FEATURED / HOME ───────────────────────────────────────────────────────
+  /featured:
+    get:
+      operationId: getFeatured
+      tags: [movies]
+      summary: Get featured content for home hero
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +719,272 @@ components:
       required:
         - status
 
+    # ── AUTH ───────────────────────────────────────────────────────────────
+    RegisterInput:
+      type: object
+      required: [email, password, name]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 6
+        name:
+          type: string
+
+    LoginInput:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    AuthResponse:
+      type: object
+      required: [token, user]
+      properties:
+        token:
+          type: string
+        user:
+          $ref: "#/components/schemas/User"
+
+    User:
+      type: object
+      required: [id, email, name, role, createdAt]
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum: [user, admin]
+        avatar:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    UserUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+          enum: [user, admin]
+
+    # ── CONTENT ────────────────────────────────────────────────────────────
+    Content:
+      type: object
+      required: [id, title, type, createdAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: ["string", "null"]
+        type:
+          type: string
+          enum: [movie, anime, tv]
+        posterUrl:
+          type: ["string", "null"]
+        bannerUrl:
+          type: ["string", "null"]
+        trailerUrl:
+          type: ["string", "null"]
+        videoUrl:
+          type: ["string", "null"]
+        year:
+          type: ["integer", "null"]
+        rating:
+          type: ["number", "null"]
+        duration:
+          type: ["integer", "null"]
+        genres:
+          type: array
+          items:
+            type: string
+        categoryId:
+          type: ["integer", "null"]
+        isTrending:
+          type: boolean
+        isFeatured:
+          type: boolean
+        viewCount:
+          type: integer
+        createdAt:
+          type: string
+
+    ContentInput:
+      type: object
+      required: [title, type]
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [movie, anime, tv]
+        posterUrl:
+          type: string
+        bannerUrl:
+          type: string
+        trailerUrl:
+          type: string
+        videoUrl:
+          type: string
+        year:
+          type: integer
+        rating:
+          type: number
+        duration:
+          type: integer
+        genres:
+          type: array
+          items:
+            type: string
+        categoryId:
+          type: integer
+        isTrending:
+          type: boolean
+        isFeatured:
+          type: boolean
+
+    ContentUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        posterUrl:
+          type: string
+        bannerUrl:
+          type: string
+        trailerUrl:
+          type: string
+        videoUrl:
+          type: string
+        year:
+          type: integer
+        rating:
+          type: number
+        duration:
+          type: integer
+        genres:
+          type: array
+          items:
+            type: string
+        categoryId:
+          type: integer
+        isTrending:
+          type: boolean
+        isFeatured:
+          type: boolean
+
+    ContentPage:
+      type: object
+      required: [items, total, page, limit]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Content"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    # ── CATEGORIES ─────────────────────────────────────────────────────────
+    Category:
+      type: object
+      required: [id, name, type]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+          enum: [movie, anime, tv, all]
+        slug:
+          type: string
+
+    CategoryInput:
+      type: object
+      required: [name, type]
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [movie, anime, tv, all]
+        slug:
+          type: string
+
+    # ── WATCHLIST ──────────────────────────────────────────────────────────
+    WatchlistInput:
+      type: object
+      required: [contentId]
+      properties:
+        contentId:
+          type: integer
+
+    WatchProgress:
+      type: object
+      required: [id, contentId, userId, progressSeconds, durationSeconds]
+      properties:
+        id:
+          type: integer
+        contentId:
+          type: integer
+        userId:
+          type: integer
+        progressSeconds:
+          type: integer
+        durationSeconds:
+          type: integer
+        content:
+          $ref: "#/components/schemas/Content"
+        updatedAt:
+          type: string
+
+    WatchProgressInput:
+      type: object
+      required: [contentId, progressSeconds, durationSeconds]
+      properties:
+        contentId:
+          type: integer
+        progressSeconds:
+          type: integer
+        durationSeconds:
+          type: integer
+
+    # ── ADMIN STATS ────────────────────────────────────────────────────────
+    AdminStats:
+      type: object
+      required: [totalMovies, totalAnime, totalTvShows, totalUsers, totalViews, recentContent]
+      properties:
+        totalMovies:
+          type: integer
+        totalAnime:
+          type: integer
+        totalTvShows:
+          type: integer
+        totalUsers:
+          type: integer
+        totalViews:
+          type: integer
+        recentContent:
+          type: array
+          items:
+            $ref: "#/components/schemas/Content"
