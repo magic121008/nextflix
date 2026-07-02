@@ -197,6 +197,36 @@ export interface WatchProgressInput {
   durationSeconds: number;
 }
 
+export interface Episode {
+  id: number;
+  contentId: number;
+  season: number;
+  episode: number;
+  title: string;
+  /** @nullable */
+  description?: string | null;
+  /** @nullable */
+  duration?: number | null;
+  /** @nullable */
+  videoUrl?: string | null;
+  /** @nullable */
+  thumbnailUrl?: string | null;
+  /** @nullable */
+  airDate?: string | null;
+  createdAt?: string;
+}
+
+export interface EpisodeInput {
+  season: number;
+  episode: number;
+  title: string;
+  description?: string;
+  duration?: number;
+  videoUrl?: string;
+  thumbnailUrl?: string;
+  airDate?: string;
+}
+
 export interface AdminStats {
   totalMovies: number;
   totalAnime: number;

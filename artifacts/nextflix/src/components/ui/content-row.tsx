@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { Content } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { Content } from "@workspace/api-client-react";
 import { ContentCard } from "./content-card";
 
 interface ContentRowProps {

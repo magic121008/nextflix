@@ -18,6 +18,8 @@ export * from './contentInputType';
 export * from './contentPage';
 export * from './contentType';
 export * from './contentUpdate';
+export * from './episode';
+export * from './episodeInput';
 export * from './getAnimeParams';
 export * from './getMoviesParams';
 export * from './getTvShowsParams';

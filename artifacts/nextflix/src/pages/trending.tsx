@@ -1,7 +1,7 @@
 import { useGetTrendingMovies, getGetTrendingMoviesQueryKey, useGetTrendingAnime, getGetTrendingAnimeQueryKey, useGetTrendingTv, getGetTrendingTvQueryKey } from "@workspace/api-client-react";
 import { ContentCard } from "@/components/ui/content-card";
 import { Loader2 } from "lucide-react";
-import type { Content } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { Content } from "@workspace/api-client-react";
 
 export default function Trending() {
   const { data: trendingMovies, isLoading: loadingMovies } = useGetTrendingMovies({ query: { queryKey: getGetTrendingMoviesQueryKey() }});

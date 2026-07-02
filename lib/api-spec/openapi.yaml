@@ -451,6 +451,153 @@ paths:
         "204":
           description: Deleted
 
+  # ── RELATED CONTENT ───────────────────────────────────────────────────────────
+  /movies/{id}/related:
+    get:
+      operationId: getRelatedMovies
+      tags: [movies]
+      summary: Get related movies
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+
+  /anime/{id}/related:
+    get:
+      operationId: getRelatedAnime
+      tags: [anime]
+      summary: Get related anime
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+
+  /tv/{id}/related:
+    get:
+      operationId: getRelatedTv
+      tags: [tv]
+      summary: Get related TV shows
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Content"
+
+  # ── EPISODES ──────────────────────────────────────────────────────────────────
+  /content/{contentId}/episodes:
+    get:
+      operationId: getEpisodes
+      tags: [tv]
+      summary: Get episodes for a TV show or anime series
+      parameters:
+        - name: contentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Episode"
+    post:
+      operationId: createEpisode
+      tags: [tv]
+      summary: Create episode (admin)
+      parameters:
+        - name: contentId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EpisodeInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Episode"
+
+  /episodes/{id}:
+    patch:
+      operationId: updateEpisode
+      tags: [tv]
+      summary: Update episode (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EpisodeInput"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Episode"
+    delete:
+      operationId: deleteEpisode
+      tags: [tv]
+      summary: Delete episode (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
   # ── CATEGORIES ────────────────────────────────────────────────────────────
   /categories:
     get:
@@ -968,6 +1115,55 @@ components:
           type: integer
         durationSeconds:
           type: integer
+
+    # ── EPISODES ───────────────────────────────────────────────────────────
+    Episode:
+      type: object
+      required: [id, contentId, season, episode, title]
+      properties:
+        id:
+          type: integer
+        contentId:
+          type: integer
+        season:
+          type: integer
+        episode:
+          type: integer
+        title:
+          type: string
+        description:
+          type: ["string", "null"]
+        duration:
+          type: ["integer", "null"]
+        videoUrl:
+          type: ["string", "null"]
+        thumbnailUrl:
+          type: ["string", "null"]
+        airDate:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    EpisodeInput:
+      type: object
+      required: [season, episode, title]
+      properties:
+        season:
+          type: integer
+        episode:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        duration:
+          type: integer
+        videoUrl:
+          type: string
+        thumbnailUrl:
+          type: string
+        airDate:
+          type: string
 
     # ── ADMIN STATS ────────────────────────────────────────────────────────
     AdminStats:

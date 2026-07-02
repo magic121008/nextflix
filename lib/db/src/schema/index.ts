@@ -3,3 +3,4 @@ export * from "./content";
 export * from "./categories";
 export * from "./watchlist";
 export * from "./watchProgress";
+export * from "./episodes";

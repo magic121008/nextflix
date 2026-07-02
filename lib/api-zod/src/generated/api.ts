@@ -651,6 +651,192 @@ export const DeleteTvShowResponse = zod.void()
 
 
 /**
+ * @summary Get related movies
+ */
+export const GetRelatedMoviesParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const GetRelatedMoviesResponseItem = zod.object({
+  "id": zod.number(),
+  "title": zod.string(),
+  "description": zod.string().nullish(),
+  "type": zod.enum(['movie', 'anime', 'tv']),
+  "posterUrl": zod.string().nullish(),
+  "bannerUrl": zod.string().nullish(),
+  "trailerUrl": zod.string().nullish(),
+  "videoUrl": zod.string().nullish(),
+  "year": zod.number().nullish(),
+  "rating": zod.number().nullish(),
+  "duration": zod.number().nullish(),
+  "genres": zod.array(zod.string()).optional(),
+  "categoryId": zod.number().nullish(),
+  "isTrending": zod.boolean().optional(),
+  "isFeatured": zod.boolean().optional(),
+  "viewCount": zod.number().optional(),
+  "createdAt": zod.string()
+})
+export const GetRelatedMoviesResponse = zod.array(GetRelatedMoviesResponseItem)
+
+
+/**
+ * @summary Get related anime
+ */
+export const GetRelatedAnimeParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const GetRelatedAnimeResponseItem = zod.object({
+  "id": zod.number(),
+  "title": zod.string(),
+  "description": zod.string().nullish(),
+  "type": zod.enum(['movie', 'anime', 'tv']),
+  "posterUrl": zod.string().nullish(),
+  "bannerUrl": zod.string().nullish(),
+  "trailerUrl": zod.string().nullish(),
+  "videoUrl": zod.string().nullish(),
+  "year": zod.number().nullish(),
+  "rating": zod.number().nullish(),
+  "duration": zod.number().nullish(),
+  "genres": zod.array(zod.string()).optional(),
+  "categoryId": zod.number().nullish(),
+  "isTrending": zod.boolean().optional(),
+  "isFeatured": zod.boolean().optional(),
+  "viewCount": zod.number().optional(),
+  "createdAt": zod.string()
+})
+export const GetRelatedAnimeResponse = zod.array(GetRelatedAnimeResponseItem)
+
+
+/**
+ * @summary Get related TV shows
+ */
+export const GetRelatedTvParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const GetRelatedTvResponseItem = zod.object({
+  "id": zod.number(),
+  "title": zod.string(),
+  "description": zod.string().nullish(),
+  "type": zod.enum(['movie', 'anime', 'tv']),
+  "posterUrl": zod.string().nullish(),
+  "bannerUrl": zod.string().nullish(),
+  "trailerUrl": zod.string().nullish(),
+  "videoUrl": zod.string().nullish(),
+  "year": zod.number().nullish(),
+  "rating": zod.number().nullish(),
+  "duration": zod.number().nullish(),
+  "genres": zod.array(zod.string()).optional(),
+  "categoryId": zod.number().nullish(),
+  "isTrending": zod.boolean().optional(),
+  "isFeatured": zod.boolean().optional(),
+  "viewCount": zod.number().optional(),
+  "createdAt": zod.string()
+})
+export const GetRelatedTvResponse = zod.array(GetRelatedTvResponseItem)
+
+
+/**
+ * @summary Get episodes for a TV show or anime series
+ */
+export const GetEpisodesParams = zod.object({
+  "contentId": zod.coerce.number()
+})
+
+export const GetEpisodesResponseItem = zod.object({
+  "id": zod.number(),
+  "contentId": zod.number(),
+  "season": zod.number(),
+  "episode": zod.number(),
+  "title": zod.string(),
+  "description": zod.string().nullish(),
+  "duration": zod.number().nullish(),
+  "videoUrl": zod.string().nullish(),
+  "thumbnailUrl": zod.string().nullish(),
+  "airDate": zod.string().nullish(),
+  "createdAt": zod.string().optional()
+})
+export const GetEpisodesResponse = zod.array(GetEpisodesResponseItem)
+
+
+/**
+ * @summary Create episode (admin)
+ */
+export const CreateEpisodeParams = zod.object({
+  "contentId": zod.coerce.number()
+})
+
+export const CreateEpisodeBody = zod.object({
+  "season": zod.number(),
+  "episode": zod.number(),
+  "title": zod.string(),
+  "description": zod.string().optional(),
+  "duration": zod.number().optional(),
+  "videoUrl": zod.string().optional(),
+  "thumbnailUrl": zod.string().optional(),
+  "airDate": zod.string().optional()
+})
+
+export const CreateEpisodeResponse = zod.object({
+  "id": zod.number(),
+  "contentId": zod.number(),
+  "season": zod.number(),
+  "episode": zod.number(),
+  "title": zod.string(),
+  "description": zod.string().nullish(),
+  "duration": zod.number().nullish(),
+  "videoUrl": zod.string().nullish(),
+  "thumbnailUrl": zod.string().nullish(),
+  "airDate": zod.string().nullish(),
+  "createdAt": zod.string().optional()
+})
+
+
+/**
+ * @summary Update episode (admin)
+ */
+export const UpdateEpisodeParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const UpdateEpisodeBody = zod.object({
+  "season": zod.number(),
+  "episode": zod.number(),
+  "title": zod.string(),
+  "description": zod.string().optional(),
+  "duration": zod.number().optional(),
+  "videoUrl": zod.string().optional(),
+  "thumbnailUrl": zod.string().optional(),
+  "airDate": zod.string().optional()
+})
+
+export const UpdateEpisodeResponse = zod.object({
+  "id": zod.number(),
+  "contentId": zod.number(),
+  "season": zod.number(),
+  "episode": zod.number(),
+  "title": zod.string(),
+  "description": zod.string().nullish(),
+  "duration": zod.number().nullish(),
+  "videoUrl": zod.string().nullish(),
+  "thumbnailUrl": zod.string().nullish(),
+  "airDate": zod.string().nullish(),
+  "createdAt": zod.string().optional()
+})
+
+
+/**
+ * @summary Delete episode (admin)
+ */
+export const DeleteEpisodeParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const DeleteEpisodeResponse = zod.void()
+
+
+/**
  * @summary List categories
  */
 export const GetCategoriesResponseItem = zod.object({

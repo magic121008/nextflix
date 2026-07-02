@@ -7,6 +7,7 @@ import watchlistRouter from "./watchlist.js";
 import continueWatchingRouter from "./continueWatching.js";
 import adminRouter from "./admin.js";
 import featuredRouter from "./featured.js";
+import episodesRouter from "./episodes.js";
 import { createContentRouter } from "./content.js";
 
 const router: IRouter = Router();
@@ -22,5 +23,6 @@ router.use("/watchlist", watchlistRouter);
 router.use("/continue-watching", continueWatchingRouter);
 router.use("/admin", adminRouter);
 router.use("/featured", featuredRouter);
+router.use("/", episodesRouter);
 
 export default router;

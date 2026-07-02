@@ -28,6 +28,8 @@ import type {
   ContentInput,
   ContentPage,
   ContentUpdate,
+  Episode,
+  EpisodeInput,
   GetAnimeParams,
   GetMoviesParams,
   GetTvShowsParams,
@@ -1785,6 +1787,526 @@ export const useDeleteTvShow = <TError = ErrorType<unknown>,
         TContext
       > => {
       return useMutation(getDeleteTvShowMutationOptions(options));
+    }
+
+export const getGetRelatedMoviesUrl = (id: number,) => {
+
+
+
+
+  return `/api/movies/${id}/related`
+}
+
+/**
+ * @summary Get related movies
+ */
+export const getRelatedMovies = async (id: number, options?: RequestInit): Promise<Content[]> => {
+
+  return customFetch<Content[]>(getGetRelatedMoviesUrl(id),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetRelatedMoviesQueryKey = (id: number,) => {
+    return [
+    `/api/movies/${id}/related`
+    ] as const;
+    }
+
+
+export const getGetRelatedMoviesQueryOptions = <TData = Awaited<ReturnType<typeof getRelatedMovies>>, TError = ErrorType<unknown>>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRelatedMovies>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetRelatedMoviesQueryKey(id);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getRelatedMovies>>> = ({ signal }) => getRelatedMovies(id, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getRelatedMovies>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetRelatedMoviesQueryResult = NonNullable<Awaited<ReturnType<typeof getRelatedMovies>>>
+export type GetRelatedMoviesQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get related movies
+ */
+
+export function useGetRelatedMovies<TData = Awaited<ReturnType<typeof getRelatedMovies>>, TError = ErrorType<unknown>>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRelatedMovies>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetRelatedMoviesQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getGetRelatedAnimeUrl = (id: number,) => {
+
+
+
+
+  return `/api/anime/${id}/related`
+}
+
+/**
+ * @summary Get related anime
+ */
+export const getRelatedAnime = async (id: number, options?: RequestInit): Promise<Content[]> => {
+
+  return customFetch<Content[]>(getGetRelatedAnimeUrl(id),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetRelatedAnimeQueryKey = (id: number,) => {
+    return [
+    `/api/anime/${id}/related`
+    ] as const;
+    }
+
+
+export const getGetRelatedAnimeQueryOptions = <TData = Awaited<ReturnType<typeof getRelatedAnime>>, TError = ErrorType<unknown>>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRelatedAnime>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetRelatedAnimeQueryKey(id);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getRelatedAnime>>> = ({ signal }) => getRelatedAnime(id, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getRelatedAnime>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetRelatedAnimeQueryResult = NonNullable<Awaited<ReturnType<typeof getRelatedAnime>>>
+export type GetRelatedAnimeQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get related anime
+ */
+
+export function useGetRelatedAnime<TData = Awaited<ReturnType<typeof getRelatedAnime>>, TError = ErrorType<unknown>>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRelatedAnime>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetRelatedAnimeQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getGetRelatedTvUrl = (id: number,) => {
+
+
+
+
+  return `/api/tv/${id}/related`
+}
+
+/**
+ * @summary Get related TV shows
+ */
+export const getRelatedTv = async (id: number, options?: RequestInit): Promise<Content[]> => {
+
+  return customFetch<Content[]>(getGetRelatedTvUrl(id),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetRelatedTvQueryKey = (id: number,) => {
+    return [
+    `/api/tv/${id}/related`
+    ] as const;
+    }
+
+
+export const getGetRelatedTvQueryOptions = <TData = Awaited<ReturnType<typeof getRelatedTv>>, TError = ErrorType<unknown>>(id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRelatedTv>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetRelatedTvQueryKey(id);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getRelatedTv>>> = ({ signal }) => getRelatedTv(id, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getRelatedTv>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetRelatedTvQueryResult = NonNullable<Awaited<ReturnType<typeof getRelatedTv>>>
+export type GetRelatedTvQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get related TV shows
+ */
+
+export function useGetRelatedTv<TData = Awaited<ReturnType<typeof getRelatedTv>>, TError = ErrorType<unknown>>(
+ id: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getRelatedTv>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetRelatedTvQueryOptions(id,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getGetEpisodesUrl = (contentId: number,) => {
+
+
+
+
+  return `/api/content/${contentId}/episodes`
+}
+
+/**
+ * @summary Get episodes for a TV show or anime series
+ */
+export const getEpisodes = async (contentId: number, options?: RequestInit): Promise<Episode[]> => {
+
+  return customFetch<Episode[]>(getGetEpisodesUrl(contentId),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetEpisodesQueryKey = (contentId: number,) => {
+    return [
+    `/api/content/${contentId}/episodes`
+    ] as const;
+    }
+
+
+export const getGetEpisodesQueryOptions = <TData = Awaited<ReturnType<typeof getEpisodes>>, TError = ErrorType<unknown>>(contentId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getEpisodes>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetEpisodesQueryKey(contentId);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getEpisodes>>> = ({ signal }) => getEpisodes(contentId, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: contentId !== null && contentId !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getEpisodes>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetEpisodesQueryResult = NonNullable<Awaited<ReturnType<typeof getEpisodes>>>
+export type GetEpisodesQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get episodes for a TV show or anime series
+ */
+
+export function useGetEpisodes<TData = Awaited<ReturnType<typeof getEpisodes>>, TError = ErrorType<unknown>>(
+ contentId: number, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getEpisodes>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetEpisodesQueryOptions(contentId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getCreateEpisodeUrl = (contentId: number,) => {
+
+
+
+
+  return `/api/content/${contentId}/episodes`
+}
+
+/**
+ * @summary Create episode (admin)
+ */
+export const createEpisode = async (contentId: number,
+    episodeInput: EpisodeInput, options?: RequestInit): Promise<Episode> => {
+
+  return customFetch<Episode>(getCreateEpisodeUrl(contentId),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(episodeInput)
+  }
+);}
+
+
+
+
+export const getCreateEpisodeMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createEpisode>>, TError,{contentId: number;data: BodyType<EpisodeInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createEpisode>>, TError,{contentId: number;data: BodyType<EpisodeInput>}, TContext> => {
+
+const mutationKey = ['createEpisode'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createEpisode>>, {contentId: number;data: BodyType<EpisodeInput>}> = (props) => {
+          const {contentId,data} = props ?? {};
+
+          return  createEpisode(contentId,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateEpisodeMutationResult = NonNullable<Awaited<ReturnType<typeof createEpisode>>>
+    export type CreateEpisodeMutationBody = BodyType<EpisodeInput>
+    export type CreateEpisodeMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Create episode (admin)
+ */
+export const useCreateEpisode = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createEpisode>>, TError,{contentId: number;data: BodyType<EpisodeInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createEpisode>>,
+        TError,
+        {contentId: number;data: BodyType<EpisodeInput>},
+        TContext
+      > => {
+      return useMutation(getCreateEpisodeMutationOptions(options));
+    }
+
+export const getUpdateEpisodeUrl = (id: number,) => {
+
+
+
+
+  return `/api/episodes/${id}`
+}
+
+/**
+ * @summary Update episode (admin)
+ */
+export const updateEpisode = async (id: number,
+    episodeInput: EpisodeInput, options?: RequestInit): Promise<Episode> => {
+
+  return customFetch<Episode>(getUpdateEpisodeUrl(id),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(episodeInput)
+  }
+);}
+
+
+
+
+export const getUpdateEpisodeMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateEpisode>>, TError,{id: number;data: BodyType<EpisodeInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateEpisode>>, TError,{id: number;data: BodyType<EpisodeInput>}, TContext> => {
+
+const mutationKey = ['updateEpisode'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateEpisode>>, {id: number;data: BodyType<EpisodeInput>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  updateEpisode(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateEpisodeMutationResult = NonNullable<Awaited<ReturnType<typeof updateEpisode>>>
+    export type UpdateEpisodeMutationBody = BodyType<EpisodeInput>
+    export type UpdateEpisodeMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Update episode (admin)
+ */
+export const useUpdateEpisode = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateEpisode>>, TError,{id: number;data: BodyType<EpisodeInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateEpisode>>,
+        TError,
+        {id: number;data: BodyType<EpisodeInput>},
+        TContext
+      > => {
+      return useMutation(getUpdateEpisodeMutationOptions(options));
+    }
+
+export const getDeleteEpisodeUrl = (id: number,) => {
+
+
+
+
+  return `/api/episodes/${id}`
+}
+
+/**
+ * @summary Delete episode (admin)
+ */
+export const deleteEpisode = async (id: number, options?: RequestInit): Promise<void> => {
+
+  return customFetch<void>(getDeleteEpisodeUrl(id),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+export const getDeleteEpisodeMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteEpisode>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteEpisode>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['deleteEpisode'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteEpisode>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteEpisode(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteEpisodeMutationResult = NonNullable<Awaited<ReturnType<typeof deleteEpisode>>>
+
+    export type DeleteEpisodeMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Delete episode (admin)
+ */
+export const useDeleteEpisode = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteEpisode>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof deleteEpisode>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getDeleteEpisodeMutationOptions(options));
     }
 
 export const getGetCategoriesUrl = () => {

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Play, Plus, ChevronDown, Check } from "lucide-react";
-import type { Content } from "@workspace/api-client-react/src/generated/api.schemas";
+import type { Content } from "@workspace/api-client-react";
 import { Button } from "./button";
 import { useAddToWatchlist, useRemoveFromWatchlist, useGetWatchlist, getGetWatchlistQueryKey } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
