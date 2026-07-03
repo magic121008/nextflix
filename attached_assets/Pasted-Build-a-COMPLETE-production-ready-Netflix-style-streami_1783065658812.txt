@@ -1,0 +1,330 @@
+Build a COMPLETE production-ready Netflix-style streaming platform named NEXTFLIX.
+
+THIS IS A NEW PROJECT.
+DO NOT reuse old code.
+DO NOT create a monorepo.
+DO NOT use any previous project structure.
+
+==================================================
+ABSOLUTE REQUIREMENTS
+==================================================
+
+The project MUST build successfully on the FIRST TRY.
+
+Before considering the project complete, automatically verify that:
+
+✓ npm install works
+✓ npm run dev works
+✓ npm run build works
+✓ There are ZERO TypeScript errors
+✓ There are ZERO ESLint errors
+✓ There are ZERO missing imports
+✓ There are ZERO missing files
+✓ There are ZERO runtime errors
+✓ There are ZERO console errors
+✓ There are ZERO blank pages
+✓ Every page loads successfully
+
+DO NOT stop until every error has been fixed.
+
+==================================================
+TECH STACK
+==================================================
+
+React 19
+Vite
+TypeScript
+TailwindCSS
+React Router
+React Query
+Axios
+Framer Motion
+
+Use ONLY npm.
+
+Do NOT use pnpm.
+Do NOT use yarn.
+Do NOT use workspaces.
+
+==================================================
+STRICTLY FORBIDDEN
+==================================================
+
+Never use
+
+@replit/*
+workspace:*
+pnpm-workspace
+turbo
+nx
+lerna
+express
+node server
+backend
+supabase
+firebase
+clerk
+mongodb
+postgres
+mysql
+drizzle
+prisma
+runtime-error-overlay
+cartographer
+dev-banner
+
+No Replit-only packages.
+
+No server.
+
+No API server.
+
+No monorepo.
+
+==================================================
+API
+==================================================
+
+Use ONLY TMDB API directly.
+
+Environment variable
+
+VITE_TMDB_API_KEY
+
+Base URL
+
+https://api.themoviedb.org/3
+
+Image URL
+
+https://image.tmdb.org/t/p/original
+
+Never use OMDB.
+
+==================================================
+DEPLOYMENT
+==================================================
+
+The project MUST deploy without ANY code modification on:
+
+Netlify
+Vercel
+GitHub Pages
+Cloudflare Pages
+
+Never require:
+
+PORT
+BASE_PATH
+SERVER_URL
+REPL_ID
+
+Never throw an error if an environment variable is missing.
+
+Never require server configuration.
+
+==================================================
+VITE
+==================================================
+
+Use a completely standard vite.config.ts.
+
+Never throw
+
+PORT not provided
+
+Never throw
+
+BASE_PATH not provided
+
+Never use allowedHosts.
+
+==================================================
+PAGES
+==================================================
+
+Home
+
+Movies
+
+TV Shows
+
+Anime
+
+Trending
+
+Latest
+
+Popular
+
+Top Rated
+
+Search
+
+Movie Details
+
+TV Details
+
+Watch Trailer
+
+Genres
+
+Profile
+
+Watchlist
+
+Favorites
+
+Continue Watching
+
+Settings
+
+404
+
+==================================================
+FEATURES
+==================================================
+
+Netflix Hero Banner
+
+Trending Slider
+
+Popular Slider
+
+Top Rated Slider
+
+Upcoming Movies
+
+Anime Slider
+
+TV Shows Slider
+
+Cast
+
+Recommendations
+
+Similar Movies
+
+YouTube Trailer
+
+Hover Animation
+
+Skeleton Loading
+
+Infinite Scroll
+
+Responsive UI
+
+Dark Theme
+
+==================================================
+AUTH
+==================================================
+
+Fake Login.
+
+Fake Register.
+
+Use ONLY LocalStorage.
+
+Never require backend.
+
+==================================================
+ADMIN
+==================================================
+
+Create Admin Dashboard.
+
+Everything stored in LocalStorage.
+
+Admin can
+
+Add Movie
+
+Edit Movie
+
+Delete Movie
+
+Manage Featured
+
+Manage Hero Banner
+
+Custom content appears before TMDB content.
+
+==================================================
+PROJECT STRUCTURE
+==================================================
+
+src
+
+components
+
+pages
+
+hooks
+
+services
+
+utils
+
+types
+
+assets
+
+public
+
+package.json
+
+vite.config.ts
+
+tailwind.config.js
+
+tsconfig.json
+
+README.md
+
+==================================================
+CODE QUALITY
+==================================================
+
+No TODO.
+
+No placeholder.
+
+No dummy code.
+
+No incomplete components.
+
+Every button works.
+
+Every route works.
+
+Every image loads.
+
+Every API request has loading state.
+
+Every API request has error handling.
+
+Every page has responsive design.
+
+==================================================
+FINAL VALIDATION
+==================================================
+
+Before finishing:
+
+Run a production build mentally and ensure:
+
+✓ npm install succeeds
+✓ npm run build succeeds
+✓ npm run dev succeeds
+✓ No deployment changes required
+✓ Netlify compatible
+✓ Vercel compatible
+✓ Cloudflare Pages compatible
+✓ GitHub Pages compatible
+
+If ANY error exists,
+continue fixing automatically until ZERO errors remain.
+
+Do NOT finish until the project is production-ready.
