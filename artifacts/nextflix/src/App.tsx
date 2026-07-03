@@ -28,7 +28,9 @@ function PageLoader() {
   return (
     <div className="min-h-screen bg-netflix-black flex items-center justify-center">
       <div className="text-center">
-        <div className="text-netflix-red font-black text-4xl mb-4">NEXTFLIX</div>
+        <div className="text-netflix-red font-black text-4xl mb-4">
+          NEXTFLIX
+        </div>
         <div className="w-8 h-8 border-2 border-netflix-red border-t-transparent rounded-full animate-spin mx-auto" />
       </div>
     </div>
@@ -59,7 +61,7 @@ export default function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        import AdminRoute from "@/routes/AdminRoute";
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>

@@ -1,0 +1,20 @@
+const DEFAULT_USERS: RegisteredUser[] = [
+  {
+    id: "user_1",
+    email: "user@nextflix.com",
+    name: "Demo User",
+    avatar: "D",
+    role: "user",
+    password: "user123",
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: "admin_1",
+    email: "admin@nextflix.com",
+    name: "Admin",
+    avatar: "A",
+    role: "admin",
+    password: "admin123",
+    createdAt: new Date().toISOString(),
+  },
+];
