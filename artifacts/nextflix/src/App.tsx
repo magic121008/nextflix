@@ -1,5 +1,7 @@
-import AdminRoute from "@/routes/AdminRoute";
 import { Suspense, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+
+import NotFound from "@/pages/NotFound";
 
 const Home = lazy(() => import("@/pages/Home"));
 const Movies = lazy(() => import("@/pages/Movies"));
@@ -22,7 +24,6 @@ const Settings = lazy(() => import("@/pages/Settings"));
 const Login = lazy(() => import("@/pages/Login"));
 const Register = lazy(() => import("@/pages/Register"));
 const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
-const NotFound = lazy(() => import("@/pages/NotFound"));
 
 function PageLoader() {
   return (
@@ -60,16 +61,14 @@ export default function App() {
         <Route path="/continue-watching" element={<ContinueWatching />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <AdminDashboard />
-            </AdminRoute>
-          }
-        />
+        {/* ADMIN (FIXED - NO AdminRoute) */}
+        <Route path="/admin" element={<AdminDashboard />} />
 
+        {/* 404 */}
         <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
+  );
+}
