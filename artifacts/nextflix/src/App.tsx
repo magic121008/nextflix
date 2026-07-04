@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import AdminRoute from "@/routes/AdminRoute";
 import { Suspense, lazy } from "react";
 
 const Home = lazy(() => import("@/pages/Home"));
@@ -60,10 +60,16 @@ export default function App() {
         <Route path="/continue-watching" element={<ContinueWatching />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        import AdminRoute from "@/routes/AdminRoute";
+
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
+
         <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Suspense>
-  );
-}

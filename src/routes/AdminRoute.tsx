@@ -1,19 +1,29 @@
-import { useAuth } from "@/context/AuthContext";
 import { Navigate } from "react-router-dom";
 import { ReactNode } from "react";
+import { useAuth } from "@/context/AuthContext";
 
-export default function AdminRoute({ children }: { children: ReactNode }) {
-  const { user, isAdmin } = useAuth();
+interface Props {
+  children: ReactNode;
+}
 
-  // 👤 not logged in
+export default function AdminRoute({ children }: Props) {
+  const { user, loading, isAdmin } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen text-white">
+        Loading...
+      </div>
+    );
+  }
+
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
-  // ❌ not admin
   if (!isAdmin) {
     return <Navigate to="/" replace />;
   }
 
-  return children;
+  return <>{children}</>;
 }
