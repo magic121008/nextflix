@@ -10,11 +10,15 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const { login, isAuthenticated } = useAuth();
+
   const navigate = useNavigate();
   const location = useLocation();
+
   const from = (location.state as { from?: string } | null)?.from ?? "/";
 
+  // 🔴 FIX: redirect outside render problem avoid
   if (isAuthenticated) {
     navigate(from, { replace: true });
     return null;
@@ -22,14 +26,19 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!email.trim() || !password.trim()) {
       setError("Please fill in all fields.");
       return;
     }
+
     setLoading(true);
     setError("");
+
     const result = await login(email.trim(), password);
+
     setLoading(false);
+
     if (result.success) {
       navigate(from, { replace: true });
     } else {
@@ -38,26 +47,42 @@ export default function Login() {
   };
 
   const fillDemo = (role: "admin" | "user") => {
-    setEmail(role === "admin" ? "admin@nextflix.com" : "user@nextflix.com");
-    setPassword("admin123");
+    if (role === "admin") {
+      setEmail("admin@nextflix.com");
+      setPassword("admin123");
+    } else {
+      setEmail("user@nextflix.com");
+      setPassword("user123");
+    }
     setError("");
   };
 
   return (
     <div
       className="min-h-screen bg-netflix-black flex items-center justify-center p-4"
-      style={{ backgroundImage: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://image.tmdb.org/t/p/original/mDfJG3LC3Dqb67AZ52x3Z0jU0uB.jpg)", backgroundSize: "cover", backgroundPosition: "center" }}
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://image.tmdb.org/t/p/original/mDfJG3LC3Dqb67AZ52x3Z0jU0uB.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="bg-black/80 backdrop-blur-sm rounded-xl p-8 w-full max-w-md"
       >
-        <Link to="/" className="block text-netflix-red font-black text-3xl text-center mb-8">NEXTFLIX</Link>
+        <Link
+          to="/"
+          className="block text-netflix-red font-black text-3xl text-center mb-8"
+        >
+          NEXTFLIX
+        </Link>
 
         <h1 className="text-2xl font-bold text-white mb-6">Sign In</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* EMAIL */}
           <div>
             <label className="block text-sm text-gray-400 mb-1.5">Email</label>
             <input
@@ -65,39 +90,48 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full bg-gray-800 border border-gray-700 focus:border-netflix-red rounded-lg px-4 py-3 text-white outline-none transition-colors text-sm"
-              autoComplete="email"
+              className="w-full bg-gray-800 border border-gray-700 focus:border-netflix-red rounded-lg px-4 py-3 text-white outline-none text-sm"
             />
           </div>
 
+          {/* PASSWORD */}
           <div>
-            <label className="block text-sm text-gray-400 mb-1.5">Password</label>
+            <label className="block text-sm text-gray-400 mb-1.5">
+              Password
+            </label>
+
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full bg-gray-800 border border-gray-700 focus:border-netflix-red rounded-lg px-4 py-3 pr-10 text-white outline-none transition-colors text-sm"
-                autoComplete="current-password"
+                className="w-full bg-gray-800 border border-gray-700 focus:border-netflix-red rounded-lg px-4 py-3 pr-10 text-white outline-none text-sm"
               />
+
               <button
                 type="button"
                 onClick={() => setShowPassword((s) => !s)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
               >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                {showPassword ? (
+                  <EyeOff className="w-4 h-4" />
+                ) : (
+                  <Eye className="w-4 h-4" />
+                )}
               </button>
             </div>
           </div>
 
+          {/* ERROR */}
           {error && (
             <div className="flex items-center gap-2 bg-red-900/30 border border-red-700/50 rounded-lg px-3 py-2.5">
-              <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+              <AlertCircle className="w-4 h-4 text-red-400" />
               <p className="text-red-400 text-sm">{error}</p>
             </div>
           )}
 
+          {/* BUTTON */}
           <button
             type="submit"
             disabled={loading}
@@ -107,18 +141,23 @@ export default function Login() {
           </button>
         </form>
 
+        {/* DEMO BUTTONS */}
         <div className="mt-6 pt-6 border-t border-gray-800">
-          <p className="text-gray-500 text-xs text-center mb-3">Demo Accounts</p>
+          <p className="text-gray-500 text-xs text-center mb-3">
+            Demo Accounts
+          </p>
+
           <div className="flex gap-2">
             <button
               onClick={() => fillDemo("user")}
-              className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs py-2 rounded transition-colors"
+              className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs py-2 rounded"
             >
               Demo User
             </button>
+
             <button
               onClick={() => fillDemo("admin")}
-              className="flex-1 bg-gray-800 hover:bg-gray-700 text-netflix-red text-xs py-2 rounded transition-colors"
+              className="flex-1 bg-gray-800 hover:bg-gray-700 text-netflix-red text-xs py-2 rounded"
             >
               Admin
             </button>
@@ -127,7 +166,12 @@ export default function Login() {
 
         <p className="text-gray-500 text-sm text-center mt-6">
           New to NEXTFLIX?{" "}
-          <Link to="/register" className="text-white hover:underline font-medium">Sign up now</Link>
+          <Link
+            to="/register"
+            className="text-white hover:underline font-medium"
+          >
+            Sign up now
+          </Link>
         </p>
       </motion.div>
     </div>

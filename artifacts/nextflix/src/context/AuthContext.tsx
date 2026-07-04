@@ -40,42 +40,33 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 const STORAGE_KEY = "nextflix_user";
 const USERS_KEY = "nextflix_users";
 
-/*
-  IMPORTANT
-
-  No default admin account.
-
-  Every new installation starts with only one demo USER.
-*/
-
+/* ✅ ADMIN + USER ADDED */
 const DEFAULT_USERS: RegisteredUser[] = [
+  {
+    id: "admin_1",
+    email: "admin@nextflix.com",
+    name: "Admin",
+    avatar: "A",
+    role: "admin",
+    password: "admin123",
+    createdAt: new Date().toISOString(),
+  },
   {
     id: "user_1",
     email: "user@nextflix.com",
     name: "Demo User",
     avatar: "D",
     role: "user",
-    password: "admin123",
+    password: "user123",
     createdAt: new Date().toISOString(),
   },
 ];
 
+/* ✅ GET USERS */
 const getUsers = (): RegisteredUser[] => {
   try {
     const stored = localStorage.getItem(USERS_KEY);
-
-    if (stored) {
-      const users = JSON.parse(stored) as RegisteredUser[];
-
-      // Remove any previously saved admin account
-      const filtered = users.filter((u) => u.role === "user");
-
-      if (filtered.length !== users.length) {
-        localStorage.setItem(USERS_KEY, JSON.stringify(filtered));
-      }
-
-      return filtered;
-    }
+    if (stored) return JSON.parse(stored);
 
     localStorage.setItem(USERS_KEY, JSON.stringify(DEFAULT_USERS));
     return DEFAULT_USERS;
@@ -91,17 +82,8 @@ const saveUsers = (users: RegisteredUser[]) => {
 const getSavedUser = (): User | null => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-
     if (!stored) return null;
-
-    const user = JSON.parse(stored) as User;
-
-    if (user.role === "admin") {
-      localStorage.removeItem(STORAGE_KEY);
-      return null;
-    }
-
-    return user;
+    return JSON.parse(stored);
   } catch {
     return null;
   }
@@ -110,6 +92,7 @@ const getSavedUser = (): User | null => {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(getSavedUser);
 
+  /* ✅ LOGIN */
   const login = useCallback(async (email: string, password: string) => {
     const users = getUsers();
 
@@ -122,19 +105,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!found) {
       return {
         success: false,
-        error: "Invalid email or password.",
+        error: "Invalid email or password",
       };
     }
 
-    const { password: _password, ...userData } = found;
+    const { password: _, ...userData } = found;
 
     setUser(userData);
-
     localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
 
     return { success: true };
   }, []);
 
+  /* ✅ REGISTER */
   const register = useCallback(
     async (name: string, email: string, password: string) => {
       const users = getUsers();
@@ -142,7 +125,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (users.find((u) => u.email.toLowerCase() === email.toLowerCase())) {
         return {
           success: false,
-          error: "Email already registered.",
+          error: "Email already registered",
         };
       }
 
@@ -158,10 +141,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       saveUsers([...users, newUser]);
 
-      const { password: _password, ...userData } = newUser;
+      const { password: _, ...userData } = newUser;
 
       setUser(userData);
-
       localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
 
       return { success: true };
@@ -169,6 +151,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [],
   );
 
+  /* ✅ LOGOUT */
   const logout = useCallback(() => {
     setUser(null);
     localStorage.removeItem(STORAGE_KEY);
